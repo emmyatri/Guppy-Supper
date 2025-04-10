@@ -9,12 +9,13 @@ while True:
       if event.key == pygame.K_escape:
         pygame.quit()
         sys.exit(0)
-   # press R to reset  the player position.
-    elif event.type == pygame.K_r:
-      player_rect.(position of the player ex: center,left, up, down) = (display size // 2)
-      print("[EVENT] KEYDOWN: USER PRESSED BUTTON R -> RESETTING PLAYER POSITION")
+    
     # All the keys that USE TO move the player.
   keys = pygame.key.get_pressed()
+  # resetting the player position.
+    if keys[pygame.K_r]:
+        square_Rect1.center = (display size // 2, display size // 2)
+        print("[EVENT] KEYDOWN: USER PRESSED BUTTON R -> RESETTING PLAYER POSITION")
   
   # to move the player up press (w)
     if key[K_w]: # check w is being pressed.

@@ -23,8 +23,8 @@ WHITE = (255,255,255)
 #player settings
 ##################################
 PLAYER_SPEED = 12
-PLAYER_IMAGE = "img/player_sprite.png"
-PLAYER_DEATH_SOUND = "audio/player_dead.ogg"
+PLAYER_IMAGE = "img1/player_sprite.png"
+PLAYER_DEATH_SOUND = "audio1/player_dead.ogg"
 
 #meteor settings
 ##################################
@@ -40,12 +40,12 @@ METEOR_SPEEDS = {
 ##################################
 
 PATHS = {
-    "big" : ["img/meteor_big_1.png", "img/meteor_big_2.png", "img/meteor_big_3.png", "img/meteor_big_4.png"],
-    "medium" : ["img/meteor_med_1.png", "img/meteor_med_2.png"],
-    "small" : ["img/meteor_small_1.png", "img/meteor_small_2.png"],
-    "tiny" : ["img/meteor_tiny_1.png", "img/meteor_tiny_2.png"]
+    "big" : ["img1/meteor_big_1.png", "img1/meteor_big_2.png", "img1/meteor_big_3.png", "img1/meteor_big_4.png"],
+    "medium" : ["img1/meteor_med_1.png", "img1/meteor_med_2.png"],
+    "small" : ["img1/meteor_small_1.png", "img1/meteor_small_2.png"],
+    "tiny" : ["img1/meteor_tiny_1.png", "img1/meteor_tiny_2.png"]
 }
 
-SOUNDS = ["audio/spawn_sound_1.ogg", "audio/spawn_sound_2.ogg", "audio/spawn_sound_3.ogg"]
+SOUNDS = ["audio1/spawn_sound_1.ogg", "audio1/spawn_sound_2.ogg", "audio1/spawn_sound_3.ogg"]
 
-BACKGROUND_IMAGE = "img/bg.png"
+BACKGROUND_IMAGE = "img1/bg.png"

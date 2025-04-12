@@ -11,26 +11,18 @@ while True:
         sys.exit(0)
         
 def move (player,keys):
-  # to move the player up press (w)
-    if key[K_w]: # check w is being pressed.
+   if key[K_w]: 
       if player.rect.top > 0:
-        player_rect = player.rect.move (0,-12) # move the player 
-       
-     
-         # to move the player down.
-      if keys[K_s] # check if s is pressed
+       player_rect = player.rect.move (0,-12) # move the player 
+    if keys[K_s] 
         if player.rect.bottom > (800): 
-          player_rect = player.rect.move (0,12) # move the player
-         
-          # to move the player left.
-      if keys[K_a] # check a is being pressed
+        player_rect = player.rect.move (0,12) # move the player
+    if keys[K_a] 
         if player.rect.left > 0:
-          player_rect =  player.rect.move (-12,0)
-         
-        # To move the player right. 
-      if keys[K_d]:
+        player_rect =  player.rect.move (-12,0)
+    if keys[K_d]:
         if player.rect.right < (800):
-           player_rect = player.rect.move (12,0)
+        player_rect = player.rect.move (12,0)
           
           
            

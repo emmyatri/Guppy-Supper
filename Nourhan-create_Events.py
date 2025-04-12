@@ -9,47 +9,31 @@ while True:
       if event.key == pygame.K_escape:
         pygame.quit()
         sys.exit(0)
-    
-    # All the keys that USE TO move the player.
-  keys = pygame.key.get_pressed()
-  # resetting the player position.
-    if keys[pygame.K_r]:
-        square_Rect1.center = (display size // 2, display size // 2)
-        print("[EVENT] KEYDOWN: USER PRESSED BUTTON R -> RESETTING PLAYER POSITION")
-  
+        
+def move (player,keys):
   # to move the player up press (w)
     if key[K_w]: # check w is being pressed.
       if player.rect.top > 0:
-        player_rect = player.rect.move (0,-5) # move the player 
-        print("[EVENT] KEY STATE: W KEY IS BEING PRESSED -> MOVING PLAYER UP")
-      else:
-        print("[EVENT] KEY STATE: W KEY IS BEING PRESSED -> CANNOT MOVE PLAYER OUT OF BOUNDS")
+        player_rect = player.rect.move (0,-12) # move the player 
+       
      
          # to move the player down.
       if keys[K_s] # check if s is pressed
-        if player.rect.bottom > (display size): 
-          player_rect = player.rect.move (0,5) # move the player
-          print(""[EVENT] KEY STATE: S KEY IS BEING PRESSED -> MOVING PLAYER down ")
-        else:
-          print("[EVENT] KEY STATE: S KEY IS BEING PRESSED -> CANNOT MOVE PLAYER OUT OF BOUNDS")
-       
+        if player.rect.bottom > (800): 
+          player_rect = player.rect.move (0,12) # move the player
+         
           # to move the player left.
       if keys[K_a] # check a is being pressed
         if player.rect.left > 0:
-          player_rect =  player.rect.move (-5,0)
-          print("[EVENT] KEY STATE: A KEY IS BEING PRESSED -> MOVING PLAYER left")
-        else:
-          print("[EVENT] KEY STATE: A KEY IS BEING PRESSED -> CANNOT MOVE PLAYER OUT OF BOUNDS")
-      
+          player_rect =  player.rect.move (-12,0)
+         
         # To move the player right. 
       if keys[K_d]:
-        if player.rect.right < (display size):
-           player_rect = player.rect.move (5,0)
-           print("[EVENT] KEY STATE: D KEY IS BEING PRESSED -> MOVING PLAYER right")
-        else:
-           print("[EVENT] KEY STATE: D KEY IS BEING PRESSED -> CANNOT MOVE PLAYER OUT OF BOUNDS")
-
-
+        if player.rect.right < (800):
+           player_rect = player.rect.move (12,0)
+          
+          
+           
         
        
         

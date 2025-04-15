@@ -4,7 +4,7 @@ pygame.mixer.init()
 
 #general settings
 ##################################
-WIDTH, HEIGHT = 800,800
+WIDTH, HEIGHT = 480,800
 RESOLUTION = (WIDTH, HEIGHT)
 FPS = 60
 SCREEN = pygame.display.set_mode(RESOLUTION)
@@ -14,51 +14,31 @@ CLOCK = pygame.time.Clock()
 CLOCK.tick(60)
 
 #custom meteor event
-WORM_EVENT = pygame.USEREVENT + 1
-BUBBLE_EVENT = pygame.USEREVENT + 2
-
+FOOD_EVENT = pygame.USEREVENT + 1
+SCORE=0
 #colors
 BLACK = (0,0,0)
 WHITE = (255,255,255)
+GREEN = (0,255,0)
+YELLOW = (255,255,0)
+
 
 #player settings
 ##################################
 PLAYER_SPEED = 12
-PLAYER_IMAGE = "img_files_go_here/fish_sprite.png"
-PLAYER_DEATH_SOUND = "audio_files_go_here/player_dead.ogg"
+PLAYER_IMAGE = pygame.image.load("img_files_go_here/Snake.jpg").convert_alpha()
+PLAYER_DEATH_SOUND = pygame.mixer.Sound("audio_files_go_here/Player_death.mp3")
 
-#meteor settings
+#Food settings
 ##################################
-WORM_SPEED = {
-    "big" : 8,
-    "medium" : 10,
-    "small" : 9,
-}
+FOOD_BLIP = {"img_files_go_here/Egg1.jpg","img_files_go_here/Egg2jpg","img_files_go_here/Egg3.jpg"}
+FOOD_APPEAR=pygame.mixer.Sound("audio_files_go_here/Food_collection.wav")
+FOOD_EATEN=pygame.mixer.Sound("audio_files_go_here/Movement_tick.ogg")
 
-BUBBLE_SPEED = {
-    "big" : 8,
-    "medium" : 10,
-    "small" : 10,
-}
+ROCK_OBSTACLE=pygame.image.load("img_files_go_here/Rock.jpg").convert_alpha()
+OBS_IMAGE=pygame.image.load("img_files_go_here/Stones.jpg").convert_alpha()
 
+BACKGROUND_IMAGE = pygame.image.load("img_files_go_here/GroundTexture.jpg").convert_alpha()
 
-# Creative assets for player/meteor/background
-##################################
-
-WORM_PATHS = {
-    "big" : ["img_files_go_here/worm1.png", "img_files_go_here/worm2.png", "img_files_go_here/worm3.png"],
-    "medium" : ["img_files_go_here/medworm1.png", "img_files_go_here/medworm2.png", "img_files_go_here/medworm3.png" ],
-    "small" : ["img_files_go_here/smallworm1.png", "img_files_go_here/smallworm2.png", "img_files_go_here/smallworm3.png"]
-}
-
-BUBBLE_PATHS = {
-    "big" : ["img_files_go_here/bigbubble1.png",],
-    "medium" : ["img_files_go_here/bubble1.png",],
-    "small" : ["img_files_go_here/bubble1.png"]
-}
-
-SOUNDS = ["audio_files_go_here/spawn_sound_1.ogg", "audio_files_go_here/spawn_sound_2.ogg", "audio_files_go_here/spawn_sound_3.ogg"]
-
-BACKGROUND_IMAGE = "img_files_go_here/background.png"
-GRADIENT = "img_files_go_here/gradient.png"
-
+GAME_OVER_SOUND=pygame.mixer.Sound("audio_files_go_here/Game_over.wav")
+LEVEL_UP_SOUND=pygame.mixer.Sound("audio_files_go_here/Success_chime.wav")

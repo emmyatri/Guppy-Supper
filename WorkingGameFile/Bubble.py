@@ -1,18 +1,18 @@
 import pygame, random
 from Config import *
 
-#define class Meteor
-class Meteor:
+#define class Worm
+class Bubble:
     def __init__(self):
 
-        #meteor types
-        self.types = random.choice(list(METEOR_SPEEDS.keys()))
+        #wprm types
+        self.types = random.choice(list(BUBBLE_SPEED.keys()))
 
-        #meteor speed by type
-        self.speed = METEOR_SPEEDS[self.types]
+        #worm speed by type
+        self.speed = BUBBLE_SPEED[self.types]
 
         #image loading
-        sprite_choice = random.choice(PATHS[self.types])
+        sprite_choice = random.choice(BUBBLE_PATHS[self.types])
         self.sprite = pygame.image.load(sprite_choice).convert_alpha()
 
         #create rectangle
@@ -24,13 +24,14 @@ class Meteor:
 
         #spawn location
         screen_width = WIDTH
+        screen_height = HEIGHT
         random_x = random.randint(0, screen_width - self.rect.width)
-        self.rect.topleft = (random_x, 0)
+        self.rect.bottomleft = (random_x, HEIGHT)
 
-    #define meteor falling
-    def fall(self):
-        self.rect = self.rect.move(0, self.speed)
+    #define worm falling
+    def rise(self):
+        self.rect = self.rect.move(0, -self.speed)
 
-    #define creative asset for Meteor
+    #define creative asset for worm
     def draw(self,surface):
         surface.blit(self.sprite, self.rect)

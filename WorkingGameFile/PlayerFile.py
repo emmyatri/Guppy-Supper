@@ -7,7 +7,7 @@ class Player:
         self.speed = PLAYER_SPEED
         self.sprite = pygame.image.load(PLAYER_IMAGE)
         self.rect = self.sprite.get_rect()
-        self.rect.midbottom = (WIDTH//2, HEIGHT - 20)
+        self.rect.midbottom = (WIDTH//2, HEIGHT -150)
         self.alive = True
         self.deadSound = pygame.mixer.Sound(PLAYER_DEATH_SOUND)
 

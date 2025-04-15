@@ -19,16 +19,16 @@ def main():
     clock = pygame.time.Clock()
 
     #GAME OVER SCREEN
-    font = pygame.font.Font(None, 48)
+    font = pygame.font.SysFont("segoeprint", 40)
     score = 0
 
     def draw_score_box():
-        score_box = font.render(f"Worms eaten: {score}", True, WHITE)
+        score_box = font.render(f" Worms eaten: {score} ", True, BLACK)
         background_rect = score_box.get_rect()
         background_rect.bottomleft = (20,HEIGHT-20)
         s = pygame.Surface((background_rect.width, background_rect.height))
-        s.set_alpha(128)
-        s.fill(BLACK)
+        s.set_alpha(1500)
+        s.fill(WHITE)
         screen.blit(s, background_rect)
 
 
@@ -98,17 +98,21 @@ def main():
                 worms.remove(worm)
                 score += 1
 
+
+
         for bubble in bubbles[:]:
             bubble.rise()
             bubble.draw(screen)
 
-            if bubble.rect.colliderect(player.rect):
+            if player.alive and bubble.rect.colliderect(player.rect):
                 player.alive = False
-                final_score = font.render(f"Final Score {score}", True, WHITE)
+                bubbles.remove(bubble)
+                final_score = font.render(f"Final Score: {score}", True, WHITE)
                 final_score_rect = final_score.get_rect(center=(WIDTH // 2, HEIGHT // 2))
                 final_score_screen = pygame.Surface((WIDTH, HEIGHT))
                 final_score_screen.set_alpha(100)
                 final_score_screen.fill(BLACK)
+
 
 
 
@@ -124,6 +128,9 @@ def main():
             screen.blit(game_over_screen, (0,0))
             screen.blit(game_over, game_over_rect)
             screen.blit(final_score, final_score_rect)
+
+
+
 
 
 

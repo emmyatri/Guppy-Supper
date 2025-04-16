@@ -20,6 +20,7 @@ BUBBLE_EVENT = pygame.USEREVENT + 2
 #colors
 BLACK = (0,0,0)
 WHITE = (255,255,255)
+BLUE = (0,0,255)
 
 #player settings
 ##################################

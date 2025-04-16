@@ -19,13 +19,13 @@ def main():
     clock = pygame.time.Clock()
 
     #GAME OVER SCREEN
-    font = pygame.font.SysFont("segoeprint", 40)
+    font = pygame.font.SysFont("segoeprint", 36)
     score = 0
 
     def draw_score_box():
         score_box = font.render(f" Worms eaten: {score} ", True, BLACK)
         background_rect = score_box.get_rect()
-        background_rect.bottomleft = (20,HEIGHT-20)
+        background_rect.center = (WIDTH/2, 40)
         s = pygame.Surface((background_rect.width, background_rect.height))
         s.set_alpha(1500)
         s.fill(WHITE)

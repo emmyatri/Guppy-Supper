@@ -95,10 +95,13 @@ def main():
             worm.draw(screen)
 
             if worm.rect.colliderect(player.rect):
+                if worm.types == "small":
+                    score += 1
+                if worm.types == "medium":
+                    score += 2
+                if worm.types == 'big':
+                    score += 3
                 worms.remove(worm)
-                score += 1
-
-
 
         for bubble in bubbles[:]:
             bubble.rise()

@@ -49,7 +49,13 @@ BUBBLE_SPEED = {
 WORM_PATHS = {
     "big" : ["img_files_go_here/worm1.png", "img_files_go_here/worm2.png", "img_files_go_here/worm3.png"],
     "medium" : ["img_files_go_here/medworm1.png", "img_files_go_here/medworm2.png", "img_files_go_here/medworm3.png" ],
-    "small" : ["img_files_go_here/smallworm1.png", "img_files_go_here/smallworm2.png", "img_files_go_here/smallworm3.png"]
+    "small" : ["img_files_go_here/smallworm1.png", "img_files_go_here/smallworm2.png", "img_files_go_here/smallworm3.png"],
+    "rare" : [""]
+}
+
+SHARK_PATHS = {
+    "shark1" : [""],
+    "shark2" : [""]
 }
 
 BUBBLE_PATHS = {
@@ -59,6 +65,8 @@ BUBBLE_PATHS = {
 }
 
 SOUNDS = ["audio_files_go_here/spawn_sound_1.ogg", "audio_files_go_here/spawn_sound_2.ogg", "audio_files_go_here/spawn_sound_3.ogg"]
+
+LEVEL_UP_SOUND = ""
 
 BACKGROUND_IMAGE = "img_files_go_here/background.png"
 GRADIENT = "img_files_go_here/gradient.png"

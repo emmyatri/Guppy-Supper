@@ -54,8 +54,7 @@ WORM_PATHS = {
 }
 
 SHARK_PATHS = {
-    "shark1" : [""],
-    "shark2" : [""]
+    "shark1" : ["Shark.png"],
 }
 
 BUBBLE_PATHS = {

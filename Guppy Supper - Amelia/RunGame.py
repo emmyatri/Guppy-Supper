@@ -11,7 +11,7 @@ def main():
     pygame.mixer.init()
 
     screen = pygame.display.set_mode((WIDTH, HEIGHT))
-    pygame.display.set_caption("Guppy Supper") #This function changes the name of the game in the window
+    pygame.display.set_caption("Guppy Supper") #changes the name of the game in the window
 
     pygame.time.set_timer(WORM_EVENT, 1000)
     pygame.time.set_timer(BUBBLE_EVENT, 2000)#time in milliseconds

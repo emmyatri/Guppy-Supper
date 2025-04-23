@@ -12,7 +12,7 @@ class OBSTACLE:
         self.opacity=255
 
         #image loading
-        self.sprite = pygame.image.load(OBS_IMAGE).convert_alpha()
+        self.sprite = pygame.image.load(SHARK_PATHS).convert_alpha()
         self.sprite = pygame.image.load(ROCK_OBSTACLE).convert_alpha()
         #create rectangle
         self.rect = self.sprite.get_rect()

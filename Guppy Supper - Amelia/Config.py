@@ -17,6 +17,7 @@ CLOCK.tick(60)
 WORM_EVENT = pygame.USEREVENT + 1
 BUBBLE_EVENT = pygame.USEREVENT + 2
 RARE_WORM_EVENT = pygame.USEREVENT + 3
+SHARK_EVENT = pygame.USEREVENT + 4
 
 #colors
 BLACK = (0,0,0)
@@ -57,9 +58,8 @@ WORM_PATHS = {
 
 RARE_WORM_PATH = {"rare" : ["img_files_go_here/GoldenWorm_80x80.png"]}
 
-SHARK_PATHS = {
-    "shark1" : ["Shark.png"],
-}
+SHARK_PATHS = "img_files_go_here/Shark.png"
+SHARK_SOUND = "audio_files_go_here/SharkThemeSong.ogg"
 
 BUBBLE_PATHS = {
     "big" : ["img_files_go_here/bigbubble1.png",],

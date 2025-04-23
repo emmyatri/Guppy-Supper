@@ -4,6 +4,7 @@ from PlayerFile import Player
 from Bubble import Bubble
 from Worm import Worm
 from RareWorm import RareWorm
+from Shark import Shark
 
 def draw_text(screen, text, size, x, y, color):
     font = pygame.font.SysFont("segoeprint", size)
@@ -92,10 +93,10 @@ def main():
     font = pygame.font.SysFont("segoeprint", 36)
     score = 0
 
-
     pygame.time.set_timer(WORM_EVENT, 1000)
     pygame.time.set_timer(BUBBLE_EVENT, 2000)
     pygame.time.set_timer(RARE_WORM_EVENT, 10000)
+    pygame.time.set_timer(SHARK_EVENT, 1000)
 
 
     clock = pygame.time.Clock()
@@ -131,9 +132,10 @@ def main():
         return
 
 
-    #create dictionary for worms and bubbles
+    #create dictionary for worms, bubbles, and sharks
     worms = []
     bubbles = []
+    sharks = []
     #initialize player file
     player = Player()
     rare_worm = RareWorm()
@@ -154,6 +156,7 @@ def main():
             if keys[pygame.K_ESCAPE]:
                 sys.exit(0)
 
+
             #initialize event
             if event.type == WORM_EVENT:
 
@@ -173,11 +176,19 @@ def main():
                 pygame.time.set_timer(RARE_WORM_EVENT, random.randint(2000, 6000))
 
             if event.type == BUBBLE_EVENT:
-
                 bubble = Bubble()
                 bubbles.append(bubble)
                 bubble.spawn_sound.play()
                 pygame.time.set_timer(WORM_EVENT, random.randint(800, 1500))
+
+
+            if event.type==SHARK_EVENT:  # 20% chance to spawn a shark
+                if random.randint(1, 100) <= 20:
+                    shark = Shark()
+                    sharks.append(shark)
+                    shark.spawn_sound.play()
+                pygame.time.set_timer(SHARK_EVENT, random.randint(1000,5000))# 20% chance to spawn a shark
+
 
 
         #create opening screen with background
@@ -224,8 +235,21 @@ def main():
                 final_score_screen.set_alpha(100)
                 final_score_screen.fill(BLACK)
 
-
-
+        for shark in sharks[:]:
+            shark.move()
+            shark.draw(screen)
+            if player.rect.colliderect(shark.rect):
+                player.alive = False
+                sharks.remove(shark)
+                player.deadSound.play()
+                pygame.time.set_timer(WORM_EVENT, 0)
+                pygame.time.set_timer(BUBBLE_EVENT, 0)
+                pygame.time.set_timer(RARE_WORM_EVENT, 0)
+                final_score = font.render(f"Final Score: {score}", True, WHITE)
+                final_score_rect = final_score.get_rect(center=(WIDTH // 2, HEIGHT // 2))
+                final_score_screen = pygame.Surface((WIDTH, HEIGHT))
+                final_score_screen.set_alpha(100)
+                final_score_screen.fill(BLACK)
 
 
 
@@ -240,12 +264,6 @@ def main():
             screen.blit(game_over_screen, (0,0))
             screen.blit(game_over, game_over_rect)
             screen.blit(final_score, final_score_rect)
-
-
-
-
-
-
 
         pygame.display.flip()
         clock.tick(FPS) #pulling FPS from Config file

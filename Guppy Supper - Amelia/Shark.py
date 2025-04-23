@@ -13,7 +13,8 @@ class Shark:
 
         #create rectangle
         self.rect = self.image.get_rect()
-        self.rect.midleft =(0,random.randint(0, HEIGHT-self.rect.height))
+        random_y = random.randint(0, HEIGHT - self.rect.height)
+        self.rect.midleft =(WIDTH, random_y)
         self.direction=1
         self.moving_off_screen=False
         #Spawn sound

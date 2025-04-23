@@ -16,6 +16,7 @@ CLOCK.tick(60)
 #custom meteor event
 WORM_EVENT = pygame.USEREVENT + 1
 BUBBLE_EVENT = pygame.USEREVENT + 2
+RARE_WORM_EVENT = pygame.USEREVENT + 3
 
 #colors
 BLACK = (0,0,0)
@@ -33,9 +34,10 @@ PLAYER_DEATH_SOUND = "audio_files_go_here/pop1.ogg"
 WORM_SPEED = {
     "big" : 8,
     "medium" : 9,
-    "small" : 10,
-    "rare" : 12
+    "small" : 10
 }
+
+RARE_WORM_SPEED = {"rare" : 6}
 
 BUBBLE_SPEED = {
     "big" : 8,
@@ -50,9 +52,10 @@ BUBBLE_SPEED = {
 WORM_PATHS = {
     "big" : ["img_files_go_here/worm1.png", "img_files_go_here/worm2.png", "img_files_go_here/worm3.png"],
     "medium" : ["img_files_go_here/medworm1.png", "img_files_go_here/medworm2.png", "img_files_go_here/medworm3.png" ],
-    "small" : ["img_files_go_here/smallworm1.png", "img_files_go_here/smallworm2.png", "img_files_go_here/smallworm3.png"],
-    "rare" : ["img_files_go_here/GoldenWorm.png"]
+    "small" : ["img_files_go_here/smallworm1.png", "img_files_go_here/smallworm2.png", "img_files_go_here/smallworm3.png"]
 }
+
+RARE_WORM_PATH = {"rare" : ["img_files_go_here/GoldenWorm_80x80.png"]}
 
 SHARK_PATHS = {
     "shark1" : ["Shark.png"],
@@ -64,11 +67,11 @@ BUBBLE_PATHS = {
     "small" : ["img_files_go_here/bubble1.png"]
 }
 
-SOUNDS = ["audio_files_go_here/spawn_sound_1.ogg", "audio_files_go_here/spawn_sound_2.ogg", "audio_files_go_here/spawn_sound_3.ogg"]
+SOUNDS = ["audio_files_go_here/SoundJump1.wav"]
 BUBBLE_SOUNDS = ["audio_files_go_here/bubbles-single2.wav", "audio_files_go_here/bubbles-single1.wav", "audio_files_go_here/bubbles-single3.wav"]
 
 
-LEVEL_UP_SOUND = ""
+GAME_MUSIC = ["audio_files_go_here/Seagull Big Ambient.wav"]
 
 BACKGROUND_IMAGE = "img_files_go_here/background.png"
 EXTRA_BG = "img_files_go_here/background2.png"

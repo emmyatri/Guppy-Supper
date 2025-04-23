@@ -1,8 +1,10 @@
 import pygame, sys, random
 from Config import *
-from Worm import Worm
 from PlayerFile import Player
 from Bubble import Bubble
+from Worm import Worm
+from RareWorm import RareWorm
+
 def draw_text(screen, text, size, x, y, color):
     font = pygame.font.SysFont("segoeprint", size)
     text_surface = font.render(text, True, color)
@@ -59,6 +61,7 @@ def show_menu(screen, background):
             "Small worms = 3 point",
             "Medium worms = 2 points",
             "Large worms = 1 points",
+            "Rare worms = 5 points",
             "Avoid the bubbles!",
             "Press ESC to quit"
         ]
@@ -78,6 +81,13 @@ def main():
     pygame.init()
     pygame.mixer.init()
 
+    try:
+        pygame.mixer.music.load("audio_files_go_here/wave1.flac")
+        pygame.mixer.music.set_volume(1)
+        pygame.mixer.music.play(-1)
+    except:
+        print("Could not load music.")
+
     screen = pygame.display.set_mode((WIDTH, HEIGHT))
     pygame.display.set_caption("Guppy Supper")#changes the name of the game in the window
 
@@ -88,6 +98,7 @@ def main():
 
     pygame.time.set_timer(WORM_EVENT, 1000)
     pygame.time.set_timer(BUBBLE_EVENT, 2000)
+    pygame.time.set_timer(RARE_WORM_EVENT, 10000)
 
 
     clock = pygame.time.Clock()
@@ -128,6 +139,7 @@ def main():
     bubbles = []
     #initialize player file
     player = Player()
+    rare_worm = RareWorm()
 
     #bool for running game loop
     running = True
@@ -144,14 +156,23 @@ def main():
             if keys[pygame.K_ESCAPE]:
                 sys.exit(0)
 
-            #initialize meteor event
+            #initialize event
             if event.type == WORM_EVENT:
 
                 worm = Worm()
                 worms.append(worm)
                 worm.spawn_sound.play()
 
+
                 pygame.time.set_timer(WORM_EVENT, random.randint(800, 1500))
+
+            if event.type == RARE_WORM_EVENT:
+
+                rare_worm = RareWorm()
+                worms.append(rare_worm)
+                worm.spawn_sound.play()
+
+                pygame.time.set_timer(RARE_WORM_EVENT, random.randint(4000, 4000))
 
             if event.type == BUBBLE_EVENT:
 
@@ -171,6 +192,7 @@ def main():
         for worm in worms[:]:
             worm.fall()
             worm.draw(screen)
+            rare_worm.fall()
 
             if worm.rect.colliderect(player.rect):
                 if worm.types == "small":
@@ -182,6 +204,10 @@ def main():
                 if worm.types == "rare":
                     score += 5
                 worms.remove(worm)
+                pygame.mixer.music.load("audio_files_go_here/Rise01.aif")
+                pygame.mixer.music.set_volume(1)
+                pygame.mixer.music.play(1)
+
 
         for bubble in bubbles[:]:
             bubble.rise()
@@ -193,6 +219,7 @@ def main():
                 player.deadSound.play()
                 pygame.time.set_timer(WORM_EVENT, 0)
                 pygame.time.set_timer(BUBBLE_EVENT, 0)
+                pygame.time.set_timer(RARE_WORM_EVENT, 0)
                 final_score = font.render(f"Final Score: {score}", True, WHITE)
                 final_score_rect = final_score.get_rect(center=(WIDTH // 2, HEIGHT // 2))
                 final_score_screen = pygame.Surface((WIDTH, HEIGHT))

@@ -80,13 +80,10 @@ def main():
 
     pygame.init()
     pygame.mixer.init()
+    pygame.mixer.music.load("audio_files_go_here/wave1.flac")
+    pygame.mixer.music.set_volume(1)
+    pygame.mixer.music.play(-1)
 
-    try:
-        pygame.mixer.music.load("audio_files_go_here/wave1.flac")
-        pygame.mixer.music.set_volume(1)
-        pygame.mixer.music.play(-1)
-    except:
-        print("Could not load music.")
 
     screen = pygame.display.set_mode((WIDTH, HEIGHT))
     pygame.display.set_caption("Guppy Supper")#changes the name of the game in the window
@@ -134,7 +131,7 @@ def main():
         return
 
 
-    #create dictionary for Meteors
+    #create dictionary for worms and bubbles
     worms = []
     bubbles = []
     #initialize player file
@@ -145,6 +142,7 @@ def main():
     running = True
 
     while running:
+
 
         #initialize key strokes
         keys = pygame.key.get_pressed()
@@ -172,7 +170,7 @@ def main():
                 worms.append(rare_worm)
                 worm.spawn_sound.play()
 
-                pygame.time.set_timer(RARE_WORM_EVENT, random.randint(4000, 4000))
+                pygame.time.set_timer(RARE_WORM_EVENT, random.randint(2000, 6000))
 
             if event.type == BUBBLE_EVENT:
 

@@ -24,6 +24,8 @@ class Shark:
         self.spawn_sound = pygame.mixer.Sound(SHARK_SOUND)
         self.spawn_sound.play()
 
+        self.creation_time = pygame.time.get_ticks()
+        self.lifespan = 10000
 
     def move(self):
         if not self.moving_off_screen:
@@ -40,6 +42,9 @@ class Shark:
 
     #define creative asset for Food
     def draw(self,surface):
+        current_time = pygame.time.get_ticks()
+        if current_time - self.creation_time > self.lifespan:
+            return False
         SCREEN.blit(self.current_image, self.rect)
         return  True
 

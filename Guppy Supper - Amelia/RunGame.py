@@ -245,6 +245,7 @@ def main():
                 pygame.time.set_timer(WORM_EVENT, 0)
                 pygame.time.set_timer(BUBBLE_EVENT, 0)
                 pygame.time.set_timer(RARE_WORM_EVENT, 0)
+                pygame.time.set_timer(SHARK_EVENT, 0)
                 final_score = font.render(f"Final Score: {score}", True, WHITE)
                 final_score_rect = final_score.get_rect(center=(WIDTH // 2, HEIGHT // 2))
                 final_score_screen = pygame.Surface((WIDTH, HEIGHT))

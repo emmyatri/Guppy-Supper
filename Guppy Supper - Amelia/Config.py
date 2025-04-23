@@ -26,14 +26,15 @@ BLUE = (0,0,255)
 ##################################
 PLAYER_SPEED = 12
 PLAYER_IMAGE = "img_files_go_here/fish_sprite.png"
-PLAYER_DEATH_SOUND = "audio_files_go_here/player_dead.ogg"
+PLAYER_DEATH_SOUND = "audio_files_go_here/pop1.ogg"
 
 #meteor settings
 ##################################
 WORM_SPEED = {
     "big" : 8,
-    "medium" : 10,
-    "small" : 9,
+    "medium" : 9,
+    "small" : 10,
+    "rare" : 12
 }
 
 BUBBLE_SPEED = {
@@ -50,7 +51,7 @@ WORM_PATHS = {
     "big" : ["img_files_go_here/worm1.png", "img_files_go_here/worm2.png", "img_files_go_here/worm3.png"],
     "medium" : ["img_files_go_here/medworm1.png", "img_files_go_here/medworm2.png", "img_files_go_here/medworm3.png" ],
     "small" : ["img_files_go_here/smallworm1.png", "img_files_go_here/smallworm2.png", "img_files_go_here/smallworm3.png"],
-    "rare" : [""]
+    "rare" : ["img_files_go_here/GoldenWorm.png"]
 }
 
 SHARK_PATHS = {
@@ -64,9 +65,12 @@ BUBBLE_PATHS = {
 }
 
 SOUNDS = ["audio_files_go_here/spawn_sound_1.ogg", "audio_files_go_here/spawn_sound_2.ogg", "audio_files_go_here/spawn_sound_3.ogg"]
+BUBBLE_SOUNDS = ["audio_files_go_here/bubbles-single2.wav", "audio_files_go_here/bubbles-single1.wav", "audio_files_go_here/bubbles-single3.wav"]
+
 
 LEVEL_UP_SOUND = ""
 
 BACKGROUND_IMAGE = "img_files_go_here/background.png"
+EXTRA_BG = "img_files_go_here/background2.png"
 GRADIENT = "img_files_go_here/gradient.png"
 

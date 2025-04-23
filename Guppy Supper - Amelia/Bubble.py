@@ -19,7 +19,7 @@ class Bubble:
         self.rect = self.sprite.get_rect()
 
         #random spawn sound
-        rand_sound = random.choice(SOUNDS)
+        rand_sound = random.choice(BUBBLE_SOUNDS)
         self.spawn_sound = pygame.mixer.Sound(rand_sound)
 
         #spawn location

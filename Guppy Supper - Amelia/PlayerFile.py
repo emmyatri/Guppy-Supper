@@ -16,19 +16,19 @@ class Player:
 
         keys = pygame.key.get_pressed()
 
-        if keys[pygame.K_a]:
+        if keys[pygame.K_a] or keys[pygame.K_LEFT]:
             if self.rect.left > 0:
                 self.rect.x -= self.speed
 
-        if keys[pygame.K_d]:
+        if keys[pygame.K_d] or keys[pygame.K_RIGHT]:
             if self.rect.right < WIDTH:
                 self.rect.x += self.speed
 
-        if keys[pygame.K_w]:
+        if keys[pygame.K_w] or keys[pygame.K_UP]:
             if self.rect.top > 0:
                 self.rect.y -= self.speed
 
-        if keys[pygame.K_s]:
+        if keys[pygame.K_s] or keys[pygame.K_DOWN]:
             if self.rect.bottom < HEIGHT :
                 self.rect.y += self.speed
 

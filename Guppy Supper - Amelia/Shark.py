@@ -10,6 +10,9 @@ class Shark:
 
         #image loading
         self.image = pygame.image.load(SHARK_PATHS).convert_alpha()
+        self.image_right = self.image
+        self.image_left = pygame.transform.flip(self.image, True, False)
+        self.current_image = self.image_right
 
         #create rectangle
         self.rect = self.image.get_rect()
@@ -26,8 +29,10 @@ class Shark:
         if not self.moving_off_screen:
             self.rect.x += self.speed * self.direction
             if self.rect.right >= WIDTH:
+               self.current_image = self.image_left
                self.direction = -1
             elif self.rect.left <= 0:
+               self.current_image = self.image_right
                self.direction = 1
         else:
             self.rect.x += self.speed
@@ -35,7 +40,6 @@ class Shark:
 
     #define creative asset for Food
     def draw(self,surface):
-        self.image.set_alpha(self.opacity)
-        surface.blit(self.image, self.rect)
+        SCREEN.blit(self.current_image, self.rect)
         return  True
 

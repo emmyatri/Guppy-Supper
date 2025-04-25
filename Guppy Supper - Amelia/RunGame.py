@@ -78,6 +78,39 @@ def show_menu(screen, background):
 
         pygame.display.flip()
         clock.tick(60)
+
+def show_game_over(screen, background, final_score):
+    game_over_running = True
+    clock = pygame.time.Clock()
+
+    while game_over_running:
+        mouse_pos = pygame.mouse.get_pos()
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                return "quit"
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if restart_button.collidepoint(mouse_pos):
+                    return "restart"
+                if quit_button.collidepoint(mouse_pos):
+                    return "quit"
+
+        # Draw game over screen
+        screen.blit(background, (0,0))
+
+        # Draw "Game Over" text
+        draw_text(screen, "Game Over!", 64, WIDTH//2, HEIGHT//3, WHITE)
+        draw_text(screen, f"Final Score: {final_score}", 48, WIDTH//2, HEIGHT//2, WHITE)
+
+        # Draw buttons
+        restart_button = draw_button(screen, "Play Again", 36, WIDTH//2, HEIGHT - 200,
+                                   (100, 200, 100), (150, 250, 150), mouse_pos)
+        quit_button = draw_button(screen, "Quit Game", 36, WIDTH//2, HEIGHT - 100,
+                                (200, 100, 100), (250, 150, 150), mouse_pos)
+
+        pygame.display.flip()
+        clock.tick(60)
+
 #main game loop
 def main():
 
@@ -86,24 +119,12 @@ def main():
     pygame.mixer.music.load("audio_files_go_here/wave1.flac")
     pygame.mixer.music.set_volume(1)
     pygame.mixer.music.play(-1)
-
-
     screen = pygame.display.set_mode((WIDTH, HEIGHT))
     pygame.display.set_caption("Guppy Supper")#changes the name of the game in the window
-
-
     font = pygame.font.SysFont("segoeprint", 36)
-    score = 0
-
-    pygame.time.set_timer(WORM_EVENT, 1000)
-    pygame.time.set_timer(BUBBLE_EVENT, 2000)
-    pygame.time.set_timer(RARE_WORM_EVENT, 10000)
-    pygame.time.set_timer(SHARK_EVENT, 1000)
-
-
     clock = pygame.time.Clock()
 
-    #GAME OVER SCREEN
+    #SCORE
 
 
     def draw_score_box():
@@ -119,171 +140,173 @@ def main():
     # Draw score text
         screen.blit(score_box, (background_rect.x, background_rect.y))
 
-    game_over = font.render(f"You Lost!", True, WHITE)
-    game_over_rect = game_over.get_rect(center=(WIDTH//2, HEIGHT/2.2))
-    game_over_screen = pygame. Surface((WIDTH, HEIGHT))
-    game_over_screen.set_alpha(100)
-    game_over_screen.fill(BLACK)
 
 
     # load background image from files
     background = pygame.image.load(BACKGROUND_IMAGE)
     background2 = pygame.image.load(EXTRA_BG)
 
-    if not show_menu(screen, background):
-        return
-
-
-    #create dictionary for worms, bubbles, and sharks
-    worms = []
-    bubbles = []
-    sharks = []
-    #initialize player file
-    player = Player()
-    rare_worm = RareWorm()
-
     #bool for running game loop
     running = True
 
     while running:
 
+        if not show_menu(screen, background):
+            break
+
+        score = 0
+        worms = []
+        bubbles = []
+        sharks = []
+        # initialize player file
+        player = Player()
+        rare_worm = RareWorm()
+
+        pygame.time.set_timer(WORM_EVENT, 1000)
+        pygame.time.set_timer(BUBBLE_EVENT, 2000)
+        pygame.time.set_timer(RARE_WORM_EVENT, 10000)
+        pygame.time.set_timer(SHARK_EVENT, 1000)
+
+        game_running = True
 
         #initialize key strokes
-        keys = pygame.key.get_pressed()
+        while game_running:
 
-        #quit game with either exit or ESC key
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                sys.exit(0)
-            if keys[pygame.K_ESCAPE]:
-                sys.exit(0)
+            keys = pygame.key.get_pressed()
 
+            # quit game with either exit or ESC key
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    sys.exit(0)
+                if keys[pygame.K_ESCAPE]:
+                    sys.exit(0)
 
-            #initialize event
-            if event.type == WORM_EVENT:
+                # initialize event
+                if event.type == WORM_EVENT:
+                    worm = Worm()
+                    worms.append(worm)
+                    worm.spawn_sound.play()
 
-                worm = Worm()
-                worms.append(worm)
-                worm.spawn_sound.play()
+                    pygame.time.set_timer(WORM_EVENT, random.randint(800, 1500))
 
+                if event.type == RARE_WORM_EVENT:
+                    rare_worm = RareWorm()
+                    worms.append(rare_worm)
+                    worm.spawn_sound.play()
 
-                pygame.time.set_timer(WORM_EVENT, random.randint(800, 1500))
+                    pygame.time.set_timer(RARE_WORM_EVENT, random.randint(2000, 6000))
 
-            if event.type == RARE_WORM_EVENT:
+                if event.type == BUBBLE_EVENT:
+                    bubble = Bubble()
+                    bubbles.append(bubble)
+                    bubble.spawn_sound.play()
+                    pygame.time.set_timer(WORM_EVENT, random.randint(800, 1500))
 
-                rare_worm = RareWorm()
-                worms.append(rare_worm)
-                worm.spawn_sound.play()
+                if event.type == SHARK_EVENT:  # 20% chance to spawn a shark
+                    if random.random() <= 0.2:  # used random.random to make the shark spawn at 0.2
+                        shark = Shark()
+                        sharks.append(shark)
+                        shark.spawn_sound.play()
+                    pygame.time.set_timer(SHARK_EVENT, random.randint(1000, 5000))  # 20% chance to spawn a shark
+            if not game_running:
+                break
+            # create opening screen with background
+            screen.blit(background, (0, 0))
+            screen.blit(background2, (0, 0))
 
-                pygame.time.set_timer(RARE_WORM_EVENT, random.randint(2000, 6000))
+            # worm logic and movements
+            for worm in worms[:]:
+                worm.fall()
+                worm.draw(screen)
 
-            if event.type == BUBBLE_EVENT:
-                bubble = Bubble()
-                bubbles.append(bubble)
-                bubble.spawn_sound.play()
-                pygame.time.set_timer(WORM_EVENT, random.randint(800, 1500))
+                if worm.rect.top > HEIGHT:
+                    worms.remove(worm)
+                    continue
 
+                if worm.rect.colliderect(player.rect):
+                    if worm.types == "small":
+                        score += 3
+                    if worm.types == "medium":
+                        score += 2
+                    if worm.types == 'big':
+                        score += 1
+                    if worm.types == "rare":
+                        score += 5
+                    worms.remove(worm)
+                    pygame.mixer.music.load("audio_files_go_here/Rise01.aif")
+                    pygame.mixer.music.set_volume(1)
+                    pygame.mixer.music.play(1)
 
-            if event.type==SHARK_EVENT:  # 20% chance to spawn a shark
-                if random.random() <= 0.2:  # used random.random to make the shark spawn at 0.2
-                    shark = Shark()
-                    sharks.append(shark)
-                    shark.spawn_sound.play()
-                pygame.time.set_timer(SHARK_EVENT, random.randint(1000,5000))# 20% chance to spawn a shark
+            for bubble in bubbles[:]:
+                bubble.rise()
+                bubble.draw(screen)
 
+                if bubble.rect.bottom < 0:
+                    bubbles.remove(bubble)
+                    continue
 
+                if player.alive and bubble.rect.colliderect(player.rect):
+                    player.alive = False
+                    bubbles.remove(bubble)
+                    player.deadSound.play()
+                    pygame.time.set_timer(WORM_EVENT, 0)
+                    pygame.time.set_timer(BUBBLE_EVENT, 0)
+                    pygame.time.set_timer(RARE_WORM_EVENT, 0)
+                    final_score = font.render(f"Final Score: {score}", True, WHITE)
+                    final_score_rect = final_score.get_rect(center=(WIDTH // 2, HEIGHT // 2))
+                    final_score_screen = pygame.Surface((WIDTH, HEIGHT))
+                    final_score_screen.set_alpha(100)
+                    final_score_screen.fill(BLACK)
 
-        #create opening screen with background
-        screen.blit(background, (0,0))
-        screen.blit(background2, (0, 0))
+            for shark in sharks[:]:
+                shark.move()
+                shark.draw(screen)
+                is_alive = shark.draw(screen)
+                if not is_alive:
+                    sharks.remove(shark)
 
+                collision_rect = shark.rect.inflate(-400, -400)
+                if player.rect.colliderect(collision_rect):
+                    player.alive = False
+                    sharks.remove(shark)
+                    player.deadSound.play()
+                    pygame.time.set_timer(WORM_EVENT, 0)
+                    pygame.time.set_timer(BUBBLE_EVENT, 0)
+                    pygame.time.set_timer(RARE_WORM_EVENT, 0)
+                    pygame.time.set_timer(SHARK_EVENT, 0)
+                    final_score = font.render(f"Final Score: {score}", True, WHITE)
+                    final_score_rect = final_score.get_rect(center=(WIDTH // 2, HEIGHT // 2))
+                    final_score_screen = pygame.Surface((WIDTH, HEIGHT))
+                    final_score_screen.set_alpha(100)
+                    final_score_screen.fill(BLACK)
 
-
-        #worm logic and movements
-        for worm in worms[:]:
-            worm.fall()
-            worm.draw(screen)
-
-            if worm.rect.top > HEIGHT:
-                worms.remove(worm)
-                continue
-
-            if worm.rect.colliderect(player.rect):
-                if worm.types == "small":
-                    score += 3
-                if worm.types == "medium":
-                    score += 2
-                if worm.types == 'big':
-                    score += 1
-                if worm.types == "rare":
-                    score += 5
-                worms.remove(worm)
-                pygame.mixer.music.load("audio_files_go_here/Rise01.aif")
-                pygame.mixer.music.set_volume(1)
-                pygame.mixer.music.play(1)
-
-
-        for bubble in bubbles[:]:
-            bubble.rise()
-            bubble.draw(screen)
-
-            if bubble.rect.bottom < 0:
-                bubbles.remove(bubble)
-                continue
-
-            if player.alive and bubble.rect.colliderect(player.rect):
-                player.alive = False
-                bubbles.remove(bubble)
-                player.deadSound.play()
-                pygame.time.set_timer(WORM_EVENT, 0)
-                pygame.time.set_timer(BUBBLE_EVENT, 0)
-                pygame.time.set_timer(RARE_WORM_EVENT, 0)
-                final_score = font.render(f"Final Score: {score}", True, WHITE)
-                final_score_rect = final_score.get_rect(center=(WIDTH // 2, HEIGHT // 2))
-                final_score_screen = pygame.Surface((WIDTH, HEIGHT))
-                final_score_screen.set_alpha(100)
-                final_score_screen.fill(BLACK)
-
-        for shark in sharks[:]:
-            shark.move()
-            shark.draw(screen)
-            is_alive = shark.draw(screen)
-            if not is_alive:
-                sharks.remove(shark)
-
-            collision_rect = shark.rect.inflate(-400,-400)
-            if player.rect.colliderect(collision_rect):
-                player.alive = False
-                sharks.remove(shark)
-                player.deadSound.play()
+            # calling movement and image from payer file
+            if player.alive:
+                player.move()
+                player.draw()
+                draw_score_box()
+            else:
                 pygame.time.set_timer(WORM_EVENT, 0)
                 pygame.time.set_timer(BUBBLE_EVENT, 0)
                 pygame.time.set_timer(RARE_WORM_EVENT, 0)
                 pygame.time.set_timer(SHARK_EVENT, 0)
-                final_score = font.render(f"Final Score: {score}", True, WHITE)
-                final_score_rect = final_score.get_rect(center=(WIDTH // 2, HEIGHT // 2))
-                final_score_screen = pygame.Surface((WIDTH, HEIGHT))
-                final_score_screen.set_alpha(100)
-                final_score_screen.fill(BLACK)
+                pygame.mixer.music.stop()
+
+                # Show game over screen
+                result = show_game_over(screen, background, score)
+                if result == "quit":
+                    running = False
+                    break
+                elif result == "restart":
+                    game_running = False
+                    break
+
+            pygame.display.flip()
+            clock.tick(FPS)  # pulling FPS from Config file
 
 
 
-        #calling movement and image from payer file
-        if player.alive:
-            player.move()
-            player.draw()
-            draw_score_box()
 
-        else:
-
-            screen.blit(game_over_screen, (0,0))
-            screen.blit(game_over, game_over_rect)
-            screen.blit(final_score, final_score_rect)
-
-        pygame.display.flip()
-        clock.tick(FPS) #pulling FPS from Config file
-
-    pygame.quit()
 
 if __name__ == "__main__":
     main()

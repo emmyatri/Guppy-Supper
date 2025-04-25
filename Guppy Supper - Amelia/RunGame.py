@@ -65,7 +65,7 @@ def show_menu(screen, background):
             "Medium worms = 2 points",
             "Large worms = 1 points",
             "Rare worms = 5 points",
-            "Avoid the bubbles!",
+            "Avoid the bubbles and sharks!",
             "Press ESC to quit"
         ]
 

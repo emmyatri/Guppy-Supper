@@ -47,4 +47,3 @@ class Shark:
             return False
         SCREEN.blit(self.current_image, self.rect)
         return  True
-

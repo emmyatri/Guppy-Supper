@@ -16,7 +16,7 @@ class Shark:
 
         #create rectangle
         self.rect = self.image.get_rect()
-        random_y = random.randint(0, HEIGHT - self.rect.height)
+        random_y = random.randint(200, HEIGHT - self.rect.height)
         self.rect.midleft =(WIDTH, random_y)
         self.direction=1
         self.moving_off_screen=False
@@ -25,7 +25,7 @@ class Shark:
         self.spawn_sound.play()
 
         self.creation_time = pygame.time.get_ticks()
-        self.lifespan = 10000
+        self.lifespan = 5000
 
     def move(self):
         if not self.moving_off_screen:

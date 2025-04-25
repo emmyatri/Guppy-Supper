@@ -6,7 +6,7 @@ pygame.mixer.init()
 ##################################
 WIDTH, HEIGHT = 800,800
 RESOLUTION = (WIDTH, HEIGHT)
-FPS = 60
+FPS = 30
 SCREEN = pygame.display.set_mode(RESOLUTION)
 pygame.display.set_mode(RESOLUTION)
 

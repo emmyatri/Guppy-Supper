@@ -26,15 +26,18 @@ class RareWorm:
         screen_width = WIDTH
         random_x = random.randint(0, screen_width - self.rect.width)
         self.rect.topleft = (random_x, 0)
-        self.original_x = random.randint(0, WIDTH - self.rect.width)
+        self.original_x = random_x
         self.time = 0
         self.amplitude = 50
+        self.frequency = 0.1
 
     #define worm falling
     def fall(self):
-        self.time += 0.1
+
         # Move down
         self.rect.y += self.speed
+        #bounded time
+        self.time = (self.time + self.frequency) % (2 * math.pi)
         # Move side to side in a sine wave
         self.rect.x = int(self.original_x + math.sin(self.time) * self.amplitude)
 

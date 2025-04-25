@@ -222,6 +222,10 @@ def main():
             bubble.rise()
             bubble.draw(screen)
 
+            if bubble.rect.bottom < 0:
+                bubbles.remove(bubble)
+                continue
+
             if player.alive and bubble.rect.colliderect(player.rect):
                 player.alive = False
                 bubbles.remove(bubble)
@@ -238,7 +242,12 @@ def main():
         for shark in sharks[:]:
             shark.move()
             shark.draw(screen)
-            if player.rect.colliderect(shark.rect):
+            is_alive = shark.draw(screen)
+            if not is_alive:
+                sharks.remove(shark)
+
+            collision_rect = shark.rect.inflate(-400,-400)
+            if player.rect.colliderect(collision_rect):
                 player.alive = False
                 sharks.remove(shark)
                 player.deadSound.play()

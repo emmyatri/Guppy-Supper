@@ -46,6 +46,8 @@ def show_menu(screen, background):
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if start_button.collidepoint(mouse_pos):
                     return True  # Start the game
+            if event.type == pygame.K_RETURN:
+                return True
 
         # Draw menu
         icon = pygame.image.load(PLAYER_IMAGE)
@@ -197,11 +199,14 @@ def main():
 
 
 
-        #meteor logic and movements
+        #worm logic and movements
         for worm in worms[:]:
             worm.fall()
             worm.draw(screen)
-            rare_worm.fall()
+
+            if worm.rect.top > HEIGHT:
+                worms.remove(worm)
+                continue
 
             if worm.rect.colliderect(player.rect):
                 if worm.types == "small":

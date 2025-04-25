@@ -38,12 +38,12 @@ WORM_SPEED = {
     "small" : 10
 }
 
-RARE_WORM_SPEED = {"rare" : 6}
+RARE_WORM_SPEED = {"rare" : 11}
 
 BUBBLE_SPEED = {
-    "big" : 8,
-    "medium" : 10,
-    "small" : 10,
+    "big" : 7,
+    "medium" : 8,
+    "small" : 9,
 }
 
 

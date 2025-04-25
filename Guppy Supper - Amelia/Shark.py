@@ -4,7 +4,7 @@ from Config import *
 class Shark:
     def __init__(self):
 
-        self.speed = random.randint(3,10)
+        self.speed = random.randint(3,8)
 
         self.opacity=255
 
@@ -25,7 +25,7 @@ class Shark:
         self.spawn_sound.play()
 
         self.creation_time = pygame.time.get_ticks()
-        self.lifespan = 5000
+        self.lifespan = 10000
 
     def move(self):
         if not self.moving_off_screen:

@@ -183,7 +183,7 @@ def main():
 
 
             if event.type==SHARK_EVENT:  # 20% chance to spawn a shark
-                if random.random() <= 20:  # used random.random to make the shark spawn at 0.2
+                if random.random() <= 0.2:  # used random.random to make the shark spawn at 0.2
                     shark = Shark()
                     sharks.append(shark)
                     shark.spawn_sound.play()
